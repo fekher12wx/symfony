@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\BookingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Location;
 
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
 class Booking
@@ -12,10 +13,8 @@ class Booking
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $bookingId = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $BookingId = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $startDate = null;
@@ -23,28 +22,26 @@ class Booking
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'userId', referencedColumnName: 'userId', nullable: false,onDelete: 'CASCADE')]
     private ?string $userId = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
+    #[ORM\OneToOne(targetEntity: Listing::class)]
+    #[ORM\JoinColumn(name: 'listingId', referencedColumnName: 'listingId', nullable: false,onDelete: 'CASCADE')]
     private ?string $listingId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    public function getId(): ?int
+
+    public function getBookingId(): ?int
     {
-        return $this->id;
+        return $this->bookingId;
     }
 
-    public function getBookingId(): ?string
+    public function setBookingId(int $bookingId): static
     {
-        return $this->BookingId;
-    }
-
-    public function setBookingId(string $BookingId): static
-    {
-        $this->BookingId = $BookingId;
+        $this->bookingId = $bookingId;
 
         return $this;
     }

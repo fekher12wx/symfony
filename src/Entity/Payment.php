@@ -12,10 +12,7 @@ class Payment
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $paymentId = null;
+    private ?int $paymentId = null;
 
     #[ORM\Column]
     private ?float $amount = null;
@@ -23,28 +20,18 @@ class Payment
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $paymentDate = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
+    #[ORM\OneToOne(targetEntity: Booking::class)]
+    #[ORM\JoinColumn(name: 'bookingId', referencedColumnName: 'bookingId', nullable: false,onDelete: 'CASCADE')]
     private ?string $bookingId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $paymentStatus = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getPaymentId(): ?string
+    public function getPaymentId(): ?int
     {
         return $this->paymentId;
     }
 
-    public function setPaymentId(string $paymentId): static
-    {
-        $this->paymentId = $paymentId;
-
-        return $this;
-    }
 
     public function getAmount(): ?float
     {

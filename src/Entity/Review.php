@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Location;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
 class Review
@@ -12,10 +13,8 @@ class Review
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $reviewId = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $reviewId = null;
 
     #[ORM\Column(type: Types::BIGINT)]
     private ?string $rating = null;
@@ -23,28 +22,20 @@ class Review
     #[ORM\Column(length: 255)]
     private ?string $comment = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
+    #[ORM\OneToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'userId', referencedColumnName: 'userId', nullable: false,onDelete: 'CASCADE')]
     private ?string $userId = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
+    #[ORM\ManyToOne(targetEntity: Listing::class)]
+    #[ORM\JoinColumn(name: 'listingId', referencedColumnName: 'listingId', nullable: false,onDelete: 'CASCADE')]
     private ?string $listingId = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
-    public function getReviewId(): ?string
+    public function getReviewId(): ?int
     {
         return $this->reviewId;
     }
 
-    public function setReviewId(string $reviewId): static
-    {
-        $this->reviewId = $reviewId;
-
-        return $this;
-    }
 
     public function getRating(): ?string
     {

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ListingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Location;
 
 #[ORM\Entity(repositoryClass: ListingRepository::class)]
 class Listing
@@ -12,10 +13,8 @@ class Listing
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $listingId = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $listingId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
@@ -32,24 +31,14 @@ class Listing
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $availabefrom = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $landlordId = null;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'owner',referencedColumnName: 'userId',nullable: false,onDelete: 'CASCADE' )]
+    private ?string $owner = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
-    public function getListingId(): ?string
+    public function getListingId(): ?int
     {
         return $this->listingId;
-    }
-
-    public function setListingId(string $listingId): static
-    {
-        $this->listingId = $listingId;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -112,14 +101,14 @@ class Listing
         return $this;
     }
 
-    public function getLandlordId(): ?string
+    public function getOwner(): ?string
     {
-        return $this->landlordId;
+        return $this->owner;
     }
 
-    public function setLandlordId(string $landlordId): static
+    public function setOwner(string $owner): static
     {
-        $this->landlordId = $landlordId;
+        $this->owner = $owner;
 
         return $this;
     }

@@ -12,10 +12,8 @@ class Appartment
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $appartementId = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $appartementId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $type = null;
@@ -29,24 +27,14 @@ class Appartment
     #[ORM\Column]
     private ?bool $furnished = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
+    #[ORM\OneToOne(targetEntity: Listing::class)]
+    #[ORM\JoinColumn(name: 'listingId', referencedColumnName: 'listingId', nullable: false,onDelete: 'CASCADE')]
     private ?string $listingId = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
-    public function getAppartementId(): ?string
+    public function getAppartementId(): ?int
     {
         return $this->appartementId;
-    }
-
-    public function setAppartementId(string $appartementId): static
-    {
-        $this->appartementId = $appartementId;
-
-        return $this;
     }
 
     public function getType(): ?string

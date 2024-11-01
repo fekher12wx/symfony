@@ -12,10 +12,7 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $userId = null;
+    private ?int $userId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -32,21 +29,9 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $role = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getUserId(): ?string
+    public function getUserId(): ?int
     {
         return $this->userId;
-    }
-
-    public function setUserId(string $userId): static
-    {
-        $this->userId = $userId;
-
-        return $this;
     }
 
     public function getName(): ?string
