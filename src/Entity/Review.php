@@ -13,7 +13,7 @@ class Review
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $reviewId = null;
+    private ?int $id = null;
 
 
     #[ORM\Column(type: Types::BIGINT)]
@@ -23,12 +23,12 @@ class Review
     private ?string $comment = null;
 
     #[ORM\OneToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: 'userId', referencedColumnName: 'userId', nullable: false,onDelete: 'CASCADE')]
-    private ?string $userId = null;
+    #[ORM\JoinColumn(name: 'userId', referencedColumnName: 'id', nullable: false,onDelete: 'CASCADE')]
+    private ?User $userId = null;
 
     #[ORM\ManyToOne(targetEntity: Listing::class)]
-    #[ORM\JoinColumn(name: 'listingId', referencedColumnName: 'listingId', nullable: false,onDelete: 'CASCADE')]
-    private ?string $listingId = null;
+    #[ORM\JoinColumn(name: 'listingId', referencedColumnName: 'id', nullable: false,onDelete: 'CASCADE')]
+    private ?Listing $listingId = null;
 
 
     public function getReviewId(): ?int

@@ -12,8 +12,8 @@ class Listing
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $listingId = null;
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
 
     #[ORM\Column(length: 255)]
@@ -32,8 +32,8 @@ class Listing
     private ?\DateTimeInterface $availabefrom = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: 'owner',referencedColumnName: 'userId',nullable: false,onDelete: 'CASCADE' )]
-    private ?string $owner = null;
+    #[ORM\JoinColumn(name: 'owner', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    private ?User $owner = null;
 
 
     public function getListingId(): ?int
@@ -101,12 +101,12 @@ class Listing
         return $this;
     }
 
-    public function getOwner(): ?string
+    public function getOwner(): ?User
     {
         return $this->owner;
     }
 
-    public function setOwner(string $owner): static
+    public function setOwner(User $owner): static
     {
         $this->owner = $owner;
 

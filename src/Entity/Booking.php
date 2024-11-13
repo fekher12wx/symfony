@@ -12,8 +12,8 @@ class Booking
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $bookingId = null;
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -23,12 +23,13 @@ class Booking
     private ?\DateTimeInterface $endDate = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: 'userId', referencedColumnName: 'userId', nullable: false,onDelete: 'CASCADE')]
-    private ?string $userId = null;
+    #[ORM\JoinColumn(name: 'userId', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    private ?User $userId = null;
 
-    #[ORM\OneToOne(targetEntity: Listing::class)]
-    #[ORM\JoinColumn(name: 'listingId', referencedColumnName: 'listingId', nullable: false,onDelete: 'CASCADE')]
-    private ?string $listingId = null;
+    #[ORM\ManyToOne(targetEntity: Listing::class)]
+    #[ORM\JoinColumn(name: 'listingId', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    private ?Listing $listingId = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;

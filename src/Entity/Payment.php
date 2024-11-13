@@ -12,7 +12,7 @@ class Payment
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $paymentId = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?float $amount = null;
@@ -21,8 +21,8 @@ class Payment
     private ?\DateTimeInterface $paymentDate = null;
 
     #[ORM\OneToOne(targetEntity: Booking::class)]
-    #[ORM\JoinColumn(name: 'bookingId', referencedColumnName: 'bookingId', nullable: false,onDelete: 'CASCADE')]
-    private ?string $bookingId = null;
+    #[ORM\JoinColumn(name: 'bookingId', referencedColumnName: 'id', nullable: false,onDelete: 'CASCADE')]
+    private ?Booking $bookingId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $paymentStatus = null;
