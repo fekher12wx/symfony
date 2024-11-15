@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listing{% endblock %}
+
+{% block body %}
+    <h1>Listing</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ listing.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ listing.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ listing.description }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ listing.address }}</td>
+            </tr>
+            <tr>
+                <th>RentPrice</th>
+                <td>{{ listing.rentPrice }}</td>
+            </tr>
+            <tr>
+                <th>Availabefrom</th>
+                <td>{{ listing.availabefrom ? listing.availabefrom|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_listing_index') }}">back to list</a>
+
+    <a href="{{ path('app_listing_edit', {'id': listing.id}) }}">edit</a>
+
+    {{ include('listing/_delete_form.html.twig') }}
+{% endblock %}
