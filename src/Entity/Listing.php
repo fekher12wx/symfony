@@ -31,6 +31,10 @@ class Listing
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $availabefrom = null;
 
+    #[ORM\ManyToOne(targetEntity: Appartment::class, inversedBy: 'listings')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    private ?Appartment $appartment = null;
+
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'owner', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private ?User $owner = null;
@@ -109,6 +113,18 @@ class Listing
     public function setOwner(User $owner): static
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getAppartment(): ?Appartment
+    {
+        return $this->appartment;
+    }
+
+    public function setAppartment(?Appartment $appartment): static
+    {
+        $this->appartment = $appartment;
 
         return $this;
     }

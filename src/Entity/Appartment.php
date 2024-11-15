@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AppartmentRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Appartment
 {
     #[ORM\Id]
@@ -26,14 +27,48 @@ class Appartment
     #[ORM\Column]
     private ?bool $furnished = null;
 
-    #[ORM\OneToOne(targetEntity: Listing::class)]
-    #[ORM\JoinColumn(name: 'listingId', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
-    private ?Listing $listingId = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateOfPublish = null;
 
-    public function getAppartementId(): ?int
+    #[ORM\OneToMany(targetEntity: Listing::class, mappedBy: 'appartment', cascade: ['persist', 'remove'])]
+    private Collection $listings;
+
+    public function __construct()
     {
-        return $this->appartementId;
+        $this->listings = new ArrayCollection();
     }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getListings(): Collection
+    {
+        return $this->listings;
+    }
+
+    public function addListing(Listing $listing): static
+    {
+        if (!$this->listings->contains($listing)) {
+            $this->listings->add($listing);
+            $listing->setAppartment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListing(Listing $listing): static
+    {
+        if ($this->listings->removeElement($listing)) {
+            if ($listing->getAppartment() === $this) {
+                $listing->setAppartment(null);
+            }
+        }
+
+        return $this;
+    }
+
 
     public function getType(): ?string
     {
@@ -94,4 +129,17 @@ class Appartment
 
         return $this;
     }
+
+    public function getDateOfPublish(): ?\DateTimeInterface
+    {
+        return $this->dateOfPublish;
+    }
+
+    public function setDateOfPublish(\DateTimeInterface $dateOfPublish): self
+    {
+        $this->dateOfPublish = $dateOfPublish;
+
+        return $this;
+    }
+
 }
