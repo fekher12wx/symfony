@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Location;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: ListingRepository::class)]
 class Listing
 {
@@ -27,6 +28,9 @@ class Listing
 
     #[ORM\Column]
     private ?float $rentPrice = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateOfPublish = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $availabefrom = null;
@@ -125,6 +129,12 @@ class Listing
     public function setAppartment(?Appartment $appartment): static
     {
         $this->appartment = $appartment;
+
+        return $this;
+    }
+    public function setDateOfPublish(\DateTimeInterface $dateOfPublish): self
+    {
+        $this->dateOfPublish = $dateOfPublish;
 
         return $this;
     }

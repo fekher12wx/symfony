@@ -29,9 +29,9 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $role = null;
 
-    public function getUserId(): ?int
+    public function getId(): ?int
     {
-        return $this->userId;
+        return $this->id;
     }
 
     public function getName(): ?string
