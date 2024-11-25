@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -33,8 +34,15 @@ class UserType extends AbstractType
                 'label' => 'Phone',
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('role', TextType::class, [
-                'label' => 'Role',
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Roles',
+                'choices' => [
+                    'User' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN',
+                    'owner' => 'ROLE_OWNER',
+                ],
+                'multiple' => true,  // Allow selecting multiple roles
+                'expanded' => true,  // Display as checkboxes
                 'attr' => ['class' => 'form-control']
             ])
             ->add('save', SubmitType::class, [

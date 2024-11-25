@@ -5,9 +5,9 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,8 +26,8 @@ class User
     #[ORM\Column(type: Types::BIGINT)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    #[ORM\Column(type: Types::JSON)]
+    private array  $roles = [];
 
     public function getId(): ?int
     {
@@ -82,15 +82,33 @@ class User
         return $this;
     }
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
 
-    public function setRole(string $role): static
+
+
+    public function getUserIdentifier(): string
     {
-        $this->role = $role;
+        return $this->email;
+    }
+    public function getRoles(): array
+    {
+        // Guarantee every user has at least ROLE_USER
+        $roles = $this->roles;
+        if (!in_array('ROLE_USER', $roles, true)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return $roles;
+    }
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
+    public function eraseCredentials()
+    {
+        // If you store temporary sensitive data on the user, clear it here
+        // For example, clear a plaintext password if it exists
+    }
+
 }
