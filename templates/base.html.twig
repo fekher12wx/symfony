@@ -13,22 +13,33 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <nav class="">
-        <ul class="nav nav-pills nav-justified">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Much longer nav link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
-        </ul>
+    <nav class="d-flex justify-content-center my-3">
+        <div class="nav-container">
+            <ul class="nav nav-pills nav-justified">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Logo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Post Your Announcement</a>
+                </li>
+                <li class="nav-item">
+                    <img src="{{ asset('assets/profile.png') }}" alt="profile" class="img-fluid" style="width: 40px; height: 40px; border-radius: 50%;">
+                </li>
+            </ul>
+        </div>
     </nav>
+
+    <style>
+        .nav-container {
+            width: 80%; /* Adjust the width as desired */
+            max-width: 1500px; /* Optional: limit the max width */
+        }
+
+    </style>
+
     <body>
         {% block body %}{% endblock %}
     </body>
