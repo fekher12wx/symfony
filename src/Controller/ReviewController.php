@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/review')]
+    #[Route('/review')]
 final class ReviewController extends AbstractController{
     #[Route(name: 'app_review_index', methods: ['GET'])]
     public function index(ReviewRepository $reviewRepository): Response
