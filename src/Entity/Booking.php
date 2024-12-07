@@ -10,7 +10,7 @@ use phpDocumentor\Reflection\Location;
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
 class Booking
 {
-    #[ORM\Id]
+    #[ORM\Id]   
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
