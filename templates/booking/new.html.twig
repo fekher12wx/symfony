@@ -1,11 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Booking{% endblock %}
+{% block title %}Create New Booking{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #343a40;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+            border-color: #565e64;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Booking</h1>
+    <div class="container mt-5">
+        <!-- Header Section -->
+        <div class="text-center">
+            <h1>Create New Booking</h1>
+            <p class="text-muted">Fill in the details below to create a new booking.</p>
+        </div>
 
-    {{ include('booking/_form.html.twig') }}
+        <!-- Form Card -->
+        <div class="card mx-auto mt-4 p-4" style="max-width: 600px;">
+            <h5 class="card-title text-center mb-3">Booking Details</h5>
+            <div class="card-body">
+                {{ include('booking/_form.html.twig') }}
+            </div>
+        </div>
 
-    <a href="{{ path('app_booking_index') }}">back to list</a>
+        <!-- Back Button -->
+        <div class="text-center mt-4">
+            <a href="{{ path('app_booking_index') }}" class="btn btn-outline-secondary back-btn">Back to List</a>
+        </div>
+    </div>
 {% endblock %}

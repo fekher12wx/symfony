@@ -1,43 +1,142 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}User List{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <section class="background-video-wrapper position-relative vh-100 d-flex align-items-center justify-content-center">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline class="background-video">
+            <source src="{{ asset('assets/videos/background.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Phone</th>
-                <th>Role</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.phone }}</td>
-                <td>{{ user.role }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <!-- Overlay -->
+        <div class="overlay"></div>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+        <!-- Foreground Content -->
+        <div class="card bg-glass shadow-lg p-4 position-relative">
+            <div class="card-body">
+                <h1 class="h4 text-center mb-4">User List</h1>
+
+                <table class="table table-hover table-striped text-center">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.roles|join(', ') }}</td>
+                            <td>
+                                <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-info btn-sm">Show</a>
+                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                {{ include('user/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">No users found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="text-center mt-3">
+                    <a href="{{ path('app_user_new') }}" class="btn btn-success btn-lg">Create New User</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Styling -->
+    <style>
+        .background-video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay for better contrast */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .bg-glass {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            z-index: 1;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .table {
+            margin: 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .thead-dark {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+        }
+
+        .btn {
+            margin: 0 5px;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background-color: #117a8b;
+            border-color: #10707f;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
 {% endblock %}

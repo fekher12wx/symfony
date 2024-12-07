@@ -27,9 +27,6 @@ class Appartment
     #[ORM\Column]
     private ?bool $furnished = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateOfPublish = null;
-
     #[ORM\OneToMany(targetEntity: Listing::class, mappedBy: 'appartment', cascade: ['persist', 'remove'])]
     private Collection $listings;
 
@@ -135,11 +132,6 @@ class Appartment
         return $this->dateOfPublish;
     }
 
-    public function setDateOfPublish(\DateTimeInterface $dateOfPublish): self
-    {
-        $this->dateOfPublish = $dateOfPublish;
 
-        return $this;
-    }
 
 }

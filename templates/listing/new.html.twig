@@ -2,10 +2,60 @@
 
 {% block title %}New Listing{% endblock %}
 
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #343a40;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h5 {
+            color: #343a40;
+        }
+
+        .btn-save {
+            width: 100%;
+        }
+
+        .back-btn a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .back-btn a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Create new Listing</h1>
+    <h1>Create New Listing</h1>
 
-    {{ include('listing/_form.html.twig') }}
+    <div class="form-container">
+        <h5 class="text-center mb-4">Listing Details</h5>
 
-    <a href="{{ path('app_listing_index') }}">back to list</a>
+        {{ include('listing/_form.html.twig') }}
+
+        <button type="submit" form="listing_form" class="btn btn-primary btn-save">Save Listing</button>
+
+        <div class="text-center back-btn mt-3">
+            <a href="{{ path('app_listing_index') }}" class="btn btn-outline-secondary">Back to Listing Index</a>
+        </div>
+    </div>
 {% endblock %}

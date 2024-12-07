@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/user')]
 final class UserController extends AbstractController
 {
-    #[Route('/user/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     // Exemple dans un contrôleur
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -51,7 +51,7 @@ final class UserController extends AbstractController
     }
 
 
-    #[Route('/user/login', name: 'app_user_login', methods: ['GET', 'POST'])]
+    #[Route('/login', name: 'app_user_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();

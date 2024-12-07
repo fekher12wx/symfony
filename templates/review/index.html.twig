@@ -1,37 +1,122 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Review index{% endblock %}
+{% block title %}Review Index{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .table-container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .actions a:hover {
+            text-decoration: underline;
+        }
+
+        .no-records {
+            text-align: center;
+            color: #888;
+            font-size: 16px;
+        }
+
+        .create-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .create-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Review index</h1>
+    <h1>Review Index</h1>
 
-    <table class="table">
-        <thead>
+    <div class="table-container">
+        <table>
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Rating</th>
                 <th>Comment</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for review in reviews %}
-            <tr>
-                <td>{{ review.id }}</td>
-                <td>{{ review.rating }}</td>
-                <td>{{ review.comment }}</td>
-                <td>
-                    <a href="{{ path('app_review_show', {'id': review.id}) }}">show</a>
-                    <a href="{{ path('app_review_edit', {'id': review.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for review in reviews %}
+                <tr>
+                    <td>{{ review.id }}</td>
+                    <td>{{ review.rating }}</td>
+                    <td>{{ review.comment }}</td>
+                    <td class="actions">
+                        <a href="{{ path('app_review_show', {'id': review.id}) }}">Show</a>
+                        <a href="{{ path('app_review_edit', {'id': review.id}) }}">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="no-records">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_review_new') }}">Create new</a>
+        <a href="{{ path('app_review_new') }}" class="create-btn">Create New</a>
+    </div>
 {% endblock %}

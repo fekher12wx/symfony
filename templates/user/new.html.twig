@@ -1,111 +1,126 @@
-{# templates/user/new.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Create a New User{% endblock %}
 
-{% block stylesheets %}
+{% block body %}
+    <section class="background-video-wrapper position-relative vh-100 d-flex align-items-center justify-content-center">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline class="background-video">
+            <source src="{{ asset('assets/videos/background.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Overlay -->
+        <div class="overlay"></div>
+
+        <!-- Foreground Content -->
+        <div class="card bg-glass shadow-lg p-4 position-relative">
+            <div class="card-body">
+                <h1 class="h4 text-center mb-4">Create a New User</h1>
+
+                {{ form_start(form) }}
+
+                <!-- Form Fields -->
+                <div class="form-floating mb-3">
+                    {{ form_row(form.name, {
+                        'attr': {'placeholder': 'Name', 'class': 'form-control'}
+                    }) }}
+                    <label for="{{ form.name.vars.id }}">Name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    {{ form_row(form.email, {
+                        'attr': {'placeholder': 'Email', 'class': 'form-control'}
+                    }) }}
+                    <label for="{{ form.email.vars.id }}">Email</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    {{ form_row(form.password, {
+                        'attr': {'placeholder': 'Password', 'class': 'form-control'}
+                    }) }}
+                    <label for="{{ form.password.vars.id }}">Password</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    {{ form_row(form.phone, {
+                        'attr': {'placeholder': 'Phone', 'class': 'form-control'}
+                    }) }}
+                    <label for="{{ form.phone.vars.id }}">Phone</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    {{ form_row(form.role, {
+                        'attr': {'placeholder': 'Role', 'class': 'form-control'}
+                    }) }}
+                    <label for="{{ form.role.vars.id }}">Role</label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button class="btn btn-success btn-lg w-100" type="submit">Save User</button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+
+    <!-- Styling -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .form-container {
-            width: 60%;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            color: #555;
-        }
-
-        .form-group input {
+        .background-video-wrapper {
+            position: relative;
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .form-group input:focus {
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay for better contrast */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .bg-glass {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            z-index: 1;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-floating label {
+            color: #6c757d;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .form-control:focus {
             border-color: #007bff;
-            outline: none;
-        }
-
-        .form-group button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .form-group button:hover {
-            background-color: #0056b3;
-        }
-
-        .form-container p {
-            text-align: center;
-            font-size: 14px;
-            color: #888;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
         }
     </style>
 {% endblock %}
-
-{% block body %}
-    <h1>Create a New User</h1>
-
-    <div class="form-container">
-        {{ form_start(form) }}
-
-        <div class="form-group">
-            {{ form_row(form.name) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_row(form.email) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_row(form.password) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_row(form.phone) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_row(form.role) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_row(form.save) }}
-        </div>
-
-        {{ form_end(form) }}
-    </div>
-{% endblock %}
-

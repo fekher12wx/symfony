@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}">
+        <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
         {% block stylesheets %}
         {% endblock %}
 
@@ -11,6 +13,33 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
+    <nav class="d-flex justify-content-center my-3">
+        <div class="nav-container">
+            <ul class="nav nav-pills nav-justified">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Logo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Post Your Announcement</a>
+                </li>
+                <li class="nav-item">
+                    <img src="{{ asset('assets/profile.png') }}" alt="profile" class="img-fluid" style="width: 40px; height: 40px; border-radius: 50%;">
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <style>
+        .nav-container {
+            width: 80%; /* Adjust the width as desired */
+            max-width: 1500px; /* Optional: limit the max width */
+        }
+
+    </style>
+
     <body>
         {% block body %}{% endblock %}
     </body>

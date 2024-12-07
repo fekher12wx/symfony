@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <section class="background-video-wrapper position-relative vh-100 d-flex align-items-center justify-content-center">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline class="background-video">
+            <source src="{{ asset('assets/videos/background.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Overlay -->
+        <div class="overlay"></div>
+
+        <!-- Foreground Content -->
+        <div class="card bg-glass shadow-lg p-4 position-relative">
+            <div class="card-body">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="alert alert-info" role="alert">
+                            You are logged in as <strong>{{ app.user.userIdentifier }}</strong>,
+                            <a href="{{ path('app_logout') }}" class="alert-link">Logout</a>.
+                        </div>
+                    {% endif %}
+
+                    <h1 class="h4 text-center mb-4">Welcome Back!</h1>
+
+                    <!-- Email Input -->
+                    <div class="form-floating mb-3">
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                               class="form-control" placeholder="Email" autocomplete="email" required autofocus>
+                        <label for="inputEmail">Email</label>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password" id="inputPassword"
+                               class="form-control" placeholder="Password" autocomplete="current-password" required>
+                        <label for="inputPassword">Password</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button class="btn btn-primary btn-block btn-lg w-100 mb-3" type="submit">Sign In</button>
+
+                    <div class="text-center">
+                        <small>Don't have an account? .</small>
+                    </div>
+
+                    <!-- Social Sign-in -->
+                    <div class="text-center mt-4">
+                        <p>or sign in with:</p>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-github"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Styling -->
+    <style>
+        .background-video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay for better contrast */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .bg-glass {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            z-index: 1;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-floating label {
+            color: #6c757d;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .btn-floating i {
+            font-size: 1.2rem;
+            color: #007bff;
+        }
+
+        .btn-floating:hover i {
+            color: #0056b3;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+    </style>
+{% endblock %}
