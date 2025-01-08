@@ -43,6 +43,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Hacher et enregistrer le mot de passe
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -50,9 +51,14 @@ class SecurityController extends AbstractController
                 )
             );
 
+            // Définir le rôle par défaut
+            $user->setRoles(['ROLE_USER']);
+
+            // Persister et enregistrer dans la base de données
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // Redirection vers la page de connexion
             return $this->redirectToRoute('app_login');
         }
 

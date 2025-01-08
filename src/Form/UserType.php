@@ -29,10 +29,11 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'help' => 'Select one or more roles for the user',
             ])
-            ->add('password', PasswordType::class, [
+            ->add('plainPassword', PasswordType::class, [
                 'label' => 'Password',
+                'mapped' => false, // Ce champ ne sera pas stocké directement dans l'entité User
                 'attr' => ['placeholder' => 'Enter password'],
-            ]);
+            ])
         ;
     }
 
