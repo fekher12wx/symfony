@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register!{% endblock %}
+
+{% block body %}
+    <section class="background-video-wrapper position-relative vh-100 d-flex align-items-center justify-content-center">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline class="background-video">
+            <source src="{{ asset('assets/videos/background.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Overlay -->
+        <div class="overlay"></div>
+
+        <!-- Foreground Content -->
+        <div class="card bg-glass shadow-lg p-4 position-relative">
+            <div class="card-body">
+                <form method="post">
+                    <h1 class="h4 text-center mb-4">Create an Account</h1>
+
+                    <!-- Email Input -->
+                    <div class="form-floating mb-3">
+                        <input type="email" name="email" id="inputEmail"
+                               class="form-control" placeholder="Email" autocomplete="email" required>
+                        <label for="inputEmail">Email</label>
+                    </div>
+
+                    <!-- Username Input -->
+                    <div class="form-floating mb-3">
+                        <input type="text" name="username" id="inputUsername"
+                               class="form-control" placeholder="Username" required>
+                        <label for="inputUsername">Username</label>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password" id="inputPassword"
+                               class="form-control" placeholder="Password" autocomplete="new-password" required>
+                        <label for="inputPassword">Password</label>
+                    </div>
+
+                    <!-- Confirm Password Input -->
+                    <div class="form-floating mb-3">
+                        <input type="password" name="confirm_password" id="inputConfirmPassword"
+                               class="form-control" placeholder="Confirm Password" required>
+                        <label for="inputConfirmPassword">Confirm Password</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button class="btn btn-primary btn-block btn-lg w-100 mb-3" type="submit">Register</button>
+
+                    <!-- Social Sign-up -->
+                    <div class="text-center mt-4">
+                        <p>or sign up with:</p>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-github"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -24,10 +24,9 @@ class UserType extends AbstractType
                 'choices' => [
                     'User' => 'ROLE_USER',
                     'Admin' => 'ROLE_ADMIN',
-
                 ],
-
                 'expanded' => true,
+                'multiple' => true,
                 'help' => 'Select one or more roles for the user',
             ])
             ->add('password', PasswordType::class, [
